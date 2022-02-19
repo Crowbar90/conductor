@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <EnablePreviewFeatures>True</EnablePreviewFeatures>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Conductor.Devices.Interfaces\Conductor.Devices.Interfaces.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="TIPC.DenonAvr" Version="1.0.10" />
+      <PackageReference Include="TIPC.DenonAvr.DependencyInjection" Version="1.0.10" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conductor.Devices.Interfaces", "Devices\Conductor.Devices.Interfaces\Conductor.Devices.Interfaces.csproj", "{19948B9B-756A-41DD-8F21-E99F66B1596F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Devices", "Devices", "{284C46D9-B764-48FB-968A-F2133EC0A308}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implementations", "{22650A34-0841-4B5B-8706-1C9B729A6F13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conductor.Devices.Implementations.DenonAvr", "Devices\Implementations\Conductor.Devices.Implementations.DenonAvr\Conductor.Devices.Implementations.DenonAvr.csproj", "{390080A1-3B65-40EB-905C-88F277FE92DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19948B9B-756A-41DD-8F21-E99F66B1596F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19948B9B-756A-41DD-8F21-E99F66B1596F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19948B9B-756A-41DD-8F21-E99F66B1596F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19948B9B-756A-41DD-8F21-E99F66B1596F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{390080A1-3B65-40EB-905C-88F277FE92DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{390080A1-3B65-40EB-905C-88F277FE92DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{390080A1-3B65-40EB-905C-88F277FE92DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{390080A1-3B65-40EB-905C-88F277FE92DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19948B9B-756A-41DD-8F21-E99F66B1596F} = {284C46D9-B764-48FB-968A-F2133EC0A308}
+		{22650A34-0841-4B5B-8706-1C9B729A6F13} = {284C46D9-B764-48FB-968A-F2133EC0A308}
+		{390080A1-3B65-40EB-905C-88F277FE92DF} = {22650A34-0841-4B5B-8706-1C9B729A6F13}
+	EndGlobalSection
+EndGlobal
