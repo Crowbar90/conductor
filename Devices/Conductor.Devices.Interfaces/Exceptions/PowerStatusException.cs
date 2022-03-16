@@ -1,9 +1,6 @@
-using System;
+namespace Conductor.Devices.Interfaces.Exceptions;
 
-namespace Conductor.Devices.Interfaces.Exceptions
+public class PowerStatusException : ApplicationException
 {
-    public class PowerStatusException : ApplicationException
-    {
         
-    }
 }

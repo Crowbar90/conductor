@@ -1,9 +1,6 @@
-using System;
+namespace Conductor.Devices.Interfaces.Exceptions;
 
-namespace Conductor.Devices.Interfaces.Exceptions
+public class MutingStatusException : ApplicationException
 {
-    public class MutingStatusException : ApplicationException
-    {
         
-    }
 }

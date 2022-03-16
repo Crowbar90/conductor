@@ -1,20 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+using Conductor.Devices.Interfaces.Mappers;
 
-namespace Conductor.Devices.Interfaces.Capabilities
+namespace Conductor.Devices.Interfaces.Capabilities;
+
+public interface IMuting
+{ }
+
+public interface IMuting<TMutingState> : IMuting
+    where TMutingState : struct, IConvertible
 {
-    public interface IMuting<TMutingStatus>
-    where TMutingStatus : struct, IConvertible
-    {
-        IDictionary<TMutingStatus, string> MutingStatuses { get; }
+    Type AudioModeMapperType => typeof(IMutingStateMapper<TMutingState>);
+    
+    IDictionary<TMutingState, string> MutingStatuses { get; }
 
-        Task<TMutingStatus?> GetMutingStatus(CancellationToken cancellationToken = default);
+    Task<TMutingState?> GetMutingStatus(CancellationToken cancellationToken = default);
 
-        Task<TMutingStatus?> Mute(CancellationToken cancellationToken = default);
-        Task<TMutingStatus?> Unmute(CancellationToken cancellationToken = default);
-        Task<TMutingStatus?> SwitchMuting(TMutingStatus status, CancellationToken cancellationToken = default);
-        Task<TMutingStatus?> MutingToggleAsync(CancellationToken cancellationToken = default);
-    }
+    Task<TMutingState?> Mute(CancellationToken cancellationToken = default);
+    Task<TMutingState?> Unmute(CancellationToken cancellationToken = default);
+    Task<TMutingState?> SwitchMuting(TMutingState status, CancellationToken cancellationToken = default);
+    Task<TMutingState?> MutingToggleAsync(CancellationToken cancellationToken = default);
 }

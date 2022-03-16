@@ -1,17 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+using Conductor.Scenes.Enums;
 
-namespace Conductor.Devices.Interfaces.Capabilities
+namespace Conductor.Devices.Interfaces.Capabilities;
+
+public interface ISources
 {
-    public interface ISources<TSource>
-        where TSource : struct, IConvertible
-    {
-        IDictionary<TSource, string> Sources { get; }
+    Task<Source> GetActiveSource(CancellationToken cancellationToken = default);
 
-        Task<TSource?> GetActiveSource(CancellationToken cancellationToken = default);
-
-        Task<TSource?> SetSource(TSource source, CancellationToken cancellationToken = default);
-    }
+    Task<Source> SetSource(Source source, CancellationToken cancellationToken = default);
+    
+    TimeSpan DelayAfterSourceChange { get; }
 }

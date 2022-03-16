@@ -8,12 +8,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Scenes\Conductor.Scenes.Enums\Conductor.Scenes.Enums.csproj" />
       <ProjectReference Include="..\..\Conductor.Devices.Interfaces\Conductor.Devices.Interfaces.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="TIPC.DenonAvr" Version="1.0.10" />
-      <PackageReference Include="TIPC.DenonAvr.DependencyInjection" Version="1.0.10" />
+      <PackageReference Include="I8Beef.Denon" Version="3.0.0.17" />
     </ItemGroup>
 
 </Project>

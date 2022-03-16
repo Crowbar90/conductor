@@ -1,20 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+using Conductor.Devices.Interfaces.Mappers;
+using Conductor.Scenes.Enums;
 
-namespace Conductor.Devices.Interfaces.Capabilities
+namespace Conductor.Devices.Interfaces.Capabilities;
+
+public interface IPower
 {
-    public interface IPower<TPowerStatus>
-    where TPowerStatus : struct, IConvertible
-    {
-        IDictionary<TPowerStatus, string> PowerStatuses { get; }
+    Task<PowerState> GetPowerStatus(CancellationToken cancellationToken = default);
 
-        Task<TPowerStatus?> GetPowerStatus(CancellationToken cancellationToken = default);
+    Task<PowerState> PowerOn(CancellationToken cancellationToken = default);
+    Task<PowerState> PowerOff(CancellationToken cancellationToken = default);
+    Task<PowerState> SwitchPower(PowerState status, CancellationToken cancellationToken = default);
+    Task<PowerState> PowerToggleAsync(CancellationToken cancellationToken = default);
 
-        Task<TPowerStatus?> PowerOn(CancellationToken cancellationToken = default);
-        Task<TPowerStatus?> PowerOff(CancellationToken cancellationToken = default);
-        Task<TPowerStatus?> SwitchPower(TPowerStatus status, CancellationToken cancellationToken = default);
-        Task<TPowerStatus?> PowerToggleAsync(CancellationToken cancellationToken = default);
-    }
+    TimeSpan DelayAfterPowerChange { get; }
 }
