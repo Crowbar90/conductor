@@ -2,14 +2,18 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
+        <EnablePreviewFeatures>True</EnablePreviewFeatures>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <LangVersion>10</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Devices\Conductor.Devices.Interfaces\Conductor.Devices.Interfaces.csproj" />
-      <ProjectReference Include="..\..\Scenes\Conductor.Scenes.Model\Conductor.Scenes.Model.csproj" />
+      <ProjectReference Include="..\Conductor.Scenes.Model\Conductor.Scenes.Model.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="10.0.1" />
     </ItemGroup>
 
 </Project>

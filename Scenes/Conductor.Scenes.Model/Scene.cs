@@ -2,7 +2,12 @@
 
 public class Scene
 {
-    public string Name { get; init; }
-    
-    public IEnumerable<DesiredState> DesiredStates { get; init; }
+    public Scene(string name, IEnumerable<State> desiredStates)
+    {
+        Name = name;
+        DesiredStates = desiredStates;
+    }
+
+    public string Name { get; }
+    public IEnumerable<State> DesiredStates { get; }
 }

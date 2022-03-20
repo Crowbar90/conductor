@@ -1,4 +1,3 @@
-using Conductor.Devices.Interfaces.Mappers;
 using Conductor.Scenes.Enums;
 
 namespace Conductor.Devices.Interfaces.Capabilities;

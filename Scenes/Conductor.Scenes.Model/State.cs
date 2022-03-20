@@ -2,8 +2,13 @@
 
 namespace Conductor.Scenes.Model;
 
-public class DesiredState
+public class State
 {
+    public State(Device device)
+    {
+        Device = device;
+    }
+
     public Device Device { get; init; }
     
     public PowerState? PowerState { get; init; }

@@ -1,21 +1,15 @@
-using Conductor.Devices.Interfaces.Mappers;
+using Conductor.Scenes.Enums;
 
 namespace Conductor.Devices.Interfaces.Capabilities;
 
 public interface IMuting
-{ }
-
-public interface IMuting<TMutingState> : IMuting
-    where TMutingState : struct, IConvertible
 {
-    Type AudioModeMapperType => typeof(IMutingStateMapper<TMutingState>);
-    
-    IDictionary<TMutingState, string> MutingStatuses { get; }
+    Task<MutingState> GetMutingStatus(CancellationToken cancellationToken = default);
 
-    Task<TMutingState?> GetMutingStatus(CancellationToken cancellationToken = default);
+    Task<MutingState> Mute(CancellationToken cancellationToken = default);
+    Task<MutingState> Unmute(CancellationToken cancellationToken = default);
+    Task<MutingState> SwitchMuting(MutingState status, CancellationToken cancellationToken = default);
+    Task<MutingState> MutingToggleAsync(CancellationToken cancellationToken = default);
 
-    Task<TMutingState?> Mute(CancellationToken cancellationToken = default);
-    Task<TMutingState?> Unmute(CancellationToken cancellationToken = default);
-    Task<TMutingState?> SwitchMuting(TMutingState status, CancellationToken cancellationToken = default);
-    Task<TMutingState?> MutingToggleAsync(CancellationToken cancellationToken = default);
+    TimeSpan DelayAfterMutingChange { get; }
 }

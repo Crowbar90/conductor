@@ -1,18 +1,12 @@
-using Conductor.Devices.Interfaces.Mappers;
+using Conductor.Scenes.Enums;
 
 namespace Conductor.Devices.Interfaces.Capabilities;
 
 public interface IAudioMode
-{ }
-
-public interface IAudioMode<TAudioMode> : IAudioMode
-    where TAudioMode : struct, IConvertible
 {
-    Type AudioModeMapperType => typeof(IAudioModeMapper<TAudioMode>);
+    Task<AudioMode> GetActiveAudioMode(CancellationToken cancellationToken = default);
 
-    IDictionary<TAudioMode, string> AudioModes { get; }
+    Task<AudioMode> SetAudioMode(AudioMode audioMode, CancellationToken cancellationToken = default);
 
-    Task<TAudioMode?> GetActiveAudioMode(CancellationToken cancellationToken = default);
-
-    Task<TAudioMode?> SetAudioMode(TAudioMode audioMode, CancellationToken cancellationToken = default);
+    TimeSpan DelayAfterAudioModeChange { get; }
 }

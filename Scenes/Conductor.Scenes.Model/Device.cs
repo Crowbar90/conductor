@@ -2,5 +2,12 @@
 
 public class Device
 {
-    public Type ClientType { get; init; }
+    public Device(Guid id, Type clientType)
+    {
+        Id = id;
+        ClientType = clientType;
+    }
+
+    public Guid Id { get; }
+    public Type ClientType { get; }
 }
