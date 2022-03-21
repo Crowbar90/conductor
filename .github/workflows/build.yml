@@ -35,11 +35,27 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+          restore-keys: ${{ runner.os }}-sonar-reportgenerator
+      - name: Cache SonarQube reportgenerator
+        id: cache-sonar-reportgenerator
+        uses: actions/cache@v1
+        with:
+          path: .\.sonar\reportgenerator
+          key: ${{ runner.os }}-sonar-reportgenerator
+          restore-keys: ${{ runner.os }}-sonar-reportgenerator
+      - name: Install SonarQube reportgenerator
+        if: steps.cache-sonar-reportgenerator.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path .\.sonar\reportgenerator -ItemType Directory
+          dotnet tool update dotnet-reportgenerator-globaltool --tool-path .\.sonar\reportgenerator
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"Crowbar90_conductor" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"Crowbar90_conductor" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.coverageReportPaths=".\sonarqubecoverage\SonarQube.xml"
           dotnet build
+          dotnet test --no-build --collect:"XPlat Code Coverage"
+          .\sonar\reportgenerator\reportgenerator "-reports:*\TestResults\*\coverage.cobertura.xml" "-targetdir:sonarqubecoverage" "-reporttypes:SonarQube"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
