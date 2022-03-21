@@ -6,7 +6,7 @@ using I8Beef.Denon.Commands;
 
 namespace Conductor.Devices.Implementations.DenonAvr.Client;
 
-public partial class DenonAvrClient : ISources
+public sealed partial class DenonAvrClient : ISources
 {
     public async Task<Source> GetActiveSource(CancellationToken cancellationToken = default)
     {

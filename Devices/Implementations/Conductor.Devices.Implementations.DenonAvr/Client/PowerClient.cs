@@ -6,7 +6,7 @@ using I8Beef.Denon.Commands;
 
 namespace Conductor.Devices.Implementations.DenonAvr.Client;
 
-public partial class DenonAvrClient : IPower
+public sealed partial class DenonAvrClient : IPower
 {
     public async Task<PowerState> GetPowerStatus(CancellationToken cancellationToken = default)
     {

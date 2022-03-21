@@ -6,7 +6,7 @@ using I8Beef.Denon.Commands;
 
 namespace Conductor.Devices.Implementations.DenonAvr.Client;
 
-public partial class DenonAvrClient : IMuting
+public sealed partial class DenonAvrClient : IMuting
 {
     public async Task<MutingState> GetMutingStatus(CancellationToken cancellationToken = default)
     {
