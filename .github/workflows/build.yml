@@ -35,20 +35,11 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-          restore-keys: ${{ runner.os }}-sonar-reportgenerator
-      - name: Cache SonarQube reportgenerator
-        id: cache-sonar-reportgenerator
-        uses: actions/cache@v1
-        with:
-          path: .\.sonar\reportgenerator
-          key: ${{ runner.os }}-sonar-reportgenerator
-          restore-keys: ${{ runner.os }}-sonar-reportgenerator
+          restore-keys: ${{ runner.os }}-sonar-scanner
       - name: Install SonarQube reportgenerator
-        if: steps.cache-sonar-reportgenerator.outputs.cache-hit != 'true'
         shell: powershell
         run: |
-          New-Item -Path .\.sonar\reportgenerator -ItemType Directory
-          dotnet tool update dotnet-reportgenerator-globaltool --tool-path .\.sonar\reportgenerator
+          dotnet tool update dotnet-reportgenerator-globaltool
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
