@@ -1,4 +1,5 @@
 ﻿using Conductor.Scenes.Enums;
+using Crowbar90.Common.Utilities;
 using I8Beef.Denon.Commands;
 
 namespace Conductor.Devices.Implementations.DenonAvr.Mappers;
@@ -6,25 +7,20 @@ namespace Conductor.Devices.Implementations.DenonAvr.Mappers;
 internal static class PowerStateMappingExtensions
 {
     private const string PowerCommandPrefix = "PW";
-    
-    internal static PowerState ToCommonPowerState(this Command devicePowerState)
+
+    private static readonly TwoWayDictionary<PowerState, Command> PowerStateMapping = new()
     {
-        if (devicePowerState.Code != PowerCommandPrefix)
-            throw new ArgumentOutOfRangeException(nameof(devicePowerState), devicePowerState, null);
-        
-        return devicePowerState.Value switch
-        {
-            "ON" => PowerState.On,
-            "STANDBY" => PowerState.Off,
-            _ => throw new ArgumentOutOfRangeException(nameof(devicePowerState), devicePowerState, null)
-        };
-    }
+        { PowerState.On, PowerCommand.Parse($"{PowerCommandPrefix}ON") },
+        { PowerState.Off, PowerCommand.Parse($"{PowerCommandPrefix}STANDBY") }
+    };
+
+    internal static PowerState ToCommonPowerState(this Command devicePowerState) =>
+        PowerStateMapping.TryGetValue(devicePowerState, out var commonPowerState)
+            ? commonPowerState
+            : throw new ArgumentOutOfRangeException(nameof(devicePowerState), devicePowerState, null);
 
     internal static Command ToDevicePowerState(this PowerState commonPowerState) =>
-        commonPowerState switch
-        {
-            PowerState.On => PowerCommand.Parse($"{PowerCommandPrefix}ON"),
-            PowerState.Off => PowerCommand.Parse($"{PowerCommandPrefix}STANDBY"),
-            _ => throw new ArgumentOutOfRangeException(nameof(commonPowerState), commonPowerState, null)
-        };
+        PowerStateMapping.TryGetValue(commonPowerState, out var devicePowerState)
+            ? devicePowerState
+            : throw new ArgumentOutOfRangeException(nameof(commonPowerState), commonPowerState, null);
 }

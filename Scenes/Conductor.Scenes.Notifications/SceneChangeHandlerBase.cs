@@ -40,7 +40,7 @@ public abstract class SceneChangeHandlerBase
         };
     }
 
-    protected static Task<PowerState?> UpdatePowerState(
+    private static Task<PowerState?> UpdatePowerState(
         IPower client,
         PowerState? powerState,
         CancellationToken cancellationToken) =>
@@ -52,7 +52,7 @@ public abstract class SceneChangeHandlerBase
             client.DelayAfterPowerChange,
             cancellationToken);
 
-    protected static Task<Source?> UpdateSource(
+    private static Task<Source?> UpdateSource(
         ISources client,
         Source? source,
         CancellationToken cancellationToken) =>
@@ -64,7 +64,7 @@ public abstract class SceneChangeHandlerBase
             client.DelayAfterSourceChange,
             cancellationToken);
 
-    protected static Task<MutingState?> UpdateMutingState(
+    private static Task<MutingState?> UpdateMutingState(
         IMuting client,
         MutingState? mutingState,
         CancellationToken cancellationToken) =>
@@ -76,7 +76,7 @@ public abstract class SceneChangeHandlerBase
             client.DelayAfterMutingChange,
             cancellationToken);
 
-    protected static Task<AudioMode?> UpdateAudioMode(
+    private static Task<AudioMode?> UpdateAudioMode(
         IAudioMode client,
         AudioMode? audioMode,
         CancellationToken cancellationToken) =>

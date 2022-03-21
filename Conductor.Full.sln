@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conductor.Scenes.Enums", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conductor.Scenes.Notifications", "Scenes\Conductor.Scenes.Notifications\Conductor.Scenes.Notifications.csproj", "{5B2ACF43-EBDB-4888-BA80-176D55E481F7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{3C59462E-0F9D-4E9E-86C5-46ADB8ABD057}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crowbar90.Common.Utilities", "Common\Crowbar90.Common.Utilities\Crowbar90.Common.Utilities.csproj", "{3BC514BF-51A3-4002-9A30-37FE188288DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,10 @@ Global
 		{5B2ACF43-EBDB-4888-BA80-176D55E481F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B2ACF43-EBDB-4888-BA80-176D55E481F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B2ACF43-EBDB-4888-BA80-176D55E481F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BC514BF-51A3-4002-9A30-37FE188288DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BC514BF-51A3-4002-9A30-37FE188288DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BC514BF-51A3-4002-9A30-37FE188288DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BC514BF-51A3-4002-9A30-37FE188288DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{19948B9B-756A-41DD-8F21-E99F66B1596F} = {284C46D9-B764-48FB-968A-F2133EC0A308}
@@ -50,5 +58,6 @@ Global
 		{C15FFAAD-832D-47FA-A16D-7A4C50EA8FB7} = {6A382189-8610-4CEB-BA2F-1AE80252EB50}
 		{5C8FFC30-D576-4387-A9B9-7E789EA45A4B} = {6A382189-8610-4CEB-BA2F-1AE80252EB50}
 		{5B2ACF43-EBDB-4888-BA80-176D55E481F7} = {6A382189-8610-4CEB-BA2F-1AE80252EB50}
+		{3BC514BF-51A3-4002-9A30-37FE188288DA} = {3C59462E-0F9D-4E9E-86C5-46ADB8ABD057}
 	EndGlobalSection
 EndGlobal

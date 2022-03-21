@@ -8,6 +8,8 @@ public enum AudioMode
     Auto,
     DolbyDigital,
     Dts,
+    Aurora3D,
+    Aurora2DSurround,
     MultiChannelStereo,
     WideScreen,
     SuperStadium,

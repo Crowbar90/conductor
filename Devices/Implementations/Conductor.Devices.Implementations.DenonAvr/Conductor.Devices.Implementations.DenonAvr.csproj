@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\Crowbar90.Common.Utilities\Crowbar90.Common.Utilities.csproj" />
       <ProjectReference Include="..\..\..\Scenes\Conductor.Scenes.Enums\Conductor.Scenes.Enums.csproj" />
       <ProjectReference Include="..\..\..\Scenes\Conductor.Scenes.Notifications\Conductor.Scenes.Notifications.csproj" />
       <ProjectReference Include="..\..\Conductor.Devices.Interfaces\Conductor.Devices.Interfaces.csproj" />
