@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Conductor.Scenes.Enums;
 using Crowbar90.Common.Utilities;
+using Crowbar90.Common.Utilities.Generics;
 using I8Beef.Denon.Commands;
 
 namespace Conductor.Devices.Implementations.DenonAvr.Mappers;

@@ -1,7 +1,8 @@
 ﻿using System.Collections;
+
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace Crowbar90.Common.Utilities;
+namespace Crowbar90.Common.Utilities.Generics;
 
 public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     where TKey : notnull
@@ -10,8 +11,7 @@ public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     private readonly Dictionary<TKey, TValue> _forward = new();
     private readonly Dictionary<TValue, TKey> _backward = new();
 
-    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => 
-        _forward.GetEnumerator();
+    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => _forward.GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -90,6 +90,8 @@ public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
 
     public bool Contains(KeyValuePair<TKey, TValue> item) =>_forward.Contains(item);
     public bool Contains(KeyValuePair<TValue, TKey> item) =>_backward.Contains(item);
+    public bool ContainsKey(TKey key) => _forward.ContainsKey(key);
+    public bool ContainsKey(TValue value) => _backward.ContainsKey(value);
 
     public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
     {
@@ -124,8 +126,6 @@ public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     public int Count => _forward.Count;
     public bool IsReadOnly => false;
 
-    public bool ContainsKey(TKey key) => _forward.ContainsKey(key);
-    public bool ContainsKey(TValue value) => _backward.ContainsKey(value);
 
     public bool TryGetValue(TKey key, out TValue value) => _forward.TryGetValue(key, out value!);
     public bool TryGetValue(TValue value, out TKey key) => _backward.TryGetValue(value, out key!);
@@ -134,9 +134,6 @@ public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         get
         {
-            if (key is null)
-                throw new ArgumentNullException(nameof(key));
-            
             if (TryGetValue(key, out var value))
                 return value;
 
@@ -144,12 +141,6 @@ public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
         }
         set
         {
-            if (key is null)
-                throw new ArgumentNullException(nameof(key));
-            
-            if (value is null)
-                throw new ArgumentNullException(nameof(value));
-            
             if (ContainsKey(key))
                 Remove(key);
             
@@ -160,9 +151,6 @@ public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         get
         {
-            if (accValue is null)
-                throw new ArgumentNullException(nameof(accValue));
-            
             if (TryGetValue(accValue, out var key))
                 return key;
 
@@ -170,12 +158,6 @@ public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
         }
         set
         {
-            if (accValue is null)
-                throw new ArgumentNullException(nameof(accValue));
-            
-            if (value is null)
-                throw new ArgumentNullException(nameof(value));
-            
             if (ContainsKey(accValue))
                 Remove(accValue);
             
