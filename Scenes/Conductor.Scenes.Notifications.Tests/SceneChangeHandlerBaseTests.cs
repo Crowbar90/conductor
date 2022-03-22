@@ -17,8 +17,6 @@ public class SceneChangeHandlerBaseTests
     private static FullDeviceMock InitializeDevice() =>
         new(PowerState.On, Source.Tv, MutingState.Unmuted, AudioMode.Auto);
 
-    private static SceneChangeNotificationHandlerMock InitializeHandler() => new();
-
     private static State InitializeState(IDevice<DeviceConfigurationMock> device) =>
         new(new Device(Guid.NewGuid(), typeof(FullDeviceMock)))
         {
@@ -38,12 +36,11 @@ public class SceneChangeHandlerBaseTests
     public async Task UpdatingStatus_InternalStatusesAreUpdated()
     {
         var device = InitializeDevice();
-        var sut = InitializeHandler();
         var state = InitializeState(device);
         var scene = InitializeScene("Test", state);
         var notification = InitializeNotification(scene);
 
-        await sut.Handle(device, notification, CancellationToken.None);
+        await SceneChangeNotificationHandlerMock.Handle(device, notification, CancellationToken.None);
         
         (await device.GetPowerStatus()).ShouldBe(PowerState.On);
         (await device.GetActiveSource()).ShouldBe(Source.Sat);

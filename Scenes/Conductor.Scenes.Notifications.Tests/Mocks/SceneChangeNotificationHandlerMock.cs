@@ -7,8 +7,7 @@ namespace Conductor.Scenes.Notifications.Tests.Mocks;
 
 public class SceneChangeNotificationHandlerMock : SceneChangeHandlerBase
 {
-    // ReSharper disable once MemberCanBeMadeStatic.Global
-    public async Task Handle(
+    public static async Task Handle(
         FullDeviceMock device,
         SceneChangeNotification notification,
         CancellationToken cancellationToken) =>
