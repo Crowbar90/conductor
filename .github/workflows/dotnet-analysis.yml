@@ -50,14 +50,11 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"Crowbar90_conductor" /o:"crowbar90" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
 
-          echo Restore packages
-          dotnet restore Conductor.Full.sln
-
           echo Build project
-          dotnet build --no-restore Conductor.Full.sln
+          dotnet build Conductor.Full.sln
 
           echo Run tests
-          dotnet test --no-build Conductor.Full.sln `
+          dotnet test Conductor.Full.sln `
           --collect:"XPlat Code Coverage" `
           --results-directory TestResults/ `
           --logger "trx;LogFileName=unittests.trx" `
