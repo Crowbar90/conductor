@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crowbar90.Common.Utilities"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crowbar90.Common.Utilities.Tests", "Common\Crowbar90.Common.Utilities.Tests\Crowbar90.Common.Utilities.Tests.csproj", "{6F65948F-C198-4F0D-84BC-C02A2BF37047}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conductor.Scenes.Notifications.Tests", "Scenes\Conductor.Scenes.Notifications.Tests\Conductor.Scenes.Notifications.Tests.csproj", "{EBCC3B1E-6348-4A0F-A3AD-1704D208B4E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{6F65948F-C198-4F0D-84BC-C02A2BF37047}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F65948F-C198-4F0D-84BC-C02A2BF37047}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F65948F-C198-4F0D-84BC-C02A2BF37047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBCC3B1E-6348-4A0F-A3AD-1704D208B4E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBCC3B1E-6348-4A0F-A3AD-1704D208B4E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBCC3B1E-6348-4A0F-A3AD-1704D208B4E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBCC3B1E-6348-4A0F-A3AD-1704D208B4E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{19948B9B-756A-41DD-8F21-E99F66B1596F} = {284C46D9-B764-48FB-968A-F2133EC0A308}
@@ -66,5 +72,6 @@ Global
 		{5B2ACF43-EBDB-4888-BA80-176D55E481F7} = {6A382189-8610-4CEB-BA2F-1AE80252EB50}
 		{3BC514BF-51A3-4002-9A30-37FE188288DA} = {3C59462E-0F9D-4E9E-86C5-46ADB8ABD057}
 		{6F65948F-C198-4F0D-84BC-C02A2BF37047} = {3C59462E-0F9D-4E9E-86C5-46ADB8ABD057}
+		{EBCC3B1E-6348-4A0F-A3AD-1704D208B4E9} = {6A382189-8610-4CEB-BA2F-1AE80252EB50}
 	EndGlobalSection
 EndGlobal
