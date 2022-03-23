@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Conductor.Devices.Interfaces.Devices;
 using Conductor.Scenes.Enums;
 using Conductor.Scenes.Model;
 using Conductor.Scenes.Notifications.Tests.Mocks;
@@ -17,7 +16,7 @@ public class SceneChangeHandlerBaseTests
     private static FullDeviceMock InitializeDevice() =>
         new(PowerState.On, Source.Tv, MutingState.Unmuted, AudioMode.Auto);
 
-    private static State InitializeState(IDevice<DeviceConfigurationMock> device) =>
+    private static State InitializeState() =>
         new(new Device(Guid.NewGuid(), typeof(FullDeviceMock)))
         {
             PowerState = PowerState.On,
@@ -36,7 +35,7 @@ public class SceneChangeHandlerBaseTests
     public async Task UpdatingStatus_InternalStatusesAreUpdated()
     {
         var device = InitializeDevice();
-        var state = InitializeState(device);
+        var state = InitializeState();
         var scene = InitializeScene("Test", state);
         var notification = InitializeNotification(scene);
 
