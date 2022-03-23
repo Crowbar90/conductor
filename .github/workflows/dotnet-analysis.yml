@@ -1,7 +1,5 @@
-name: .NET Analysis
+name: Sonarcloud PR Analysis
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
     types: [opened, synchronize, reopened]
