@@ -6,7 +6,7 @@ using I8Beef.Denon.Commands;
 
 namespace Conductor.Devices.Implementations.DenonAvr.Client;
 
-public sealed partial class DenonAvrClient : IPower
+public sealed partial class DenonAvrClient : IPowerOnOff
 {
     public async Task<PowerState> GetPowerStatus(CancellationToken cancellationToken = default)
     {
@@ -23,12 +23,6 @@ public sealed partial class DenonAvrClient : IPower
             throw new UnexpectedResponseException($"{GetType()}: Error sending telnet query.", e);
         }
     }
-
-    public Task<PowerState> PowerOn(CancellationToken cancellationToken = default) =>
-        SwitchPower(PowerState.On, cancellationToken);
-
-    public Task<PowerState> PowerOff(CancellationToken cancellationToken = default) =>
-        SwitchPower(PowerState.Off, cancellationToken);
 
     public async Task<PowerState> SwitchPower(PowerState status, CancellationToken cancellationToken = default)
     {
@@ -47,9 +41,6 @@ public sealed partial class DenonAvrClient : IPower
             throw new UnexpectedResponseException($"{GetType()}: Error sending telnet query.", e);
         }
     }
-
-    public async Task<PowerState> PowerToggleAsync(CancellationToken cancellationToken = default) =>
-        await SwitchPower((await GetPowerStatus(cancellationToken)).Opposite(), cancellationToken);
 
     public TimeSpan DelayAfterPowerChange => TimeSpan.FromSeconds(3);
 }

@@ -1,4 +1,5 @@
 ﻿using Conductor.Devices.Interfaces.Capabilities;
+using Conductor.Devices.Interfaces.Capabilities.Extensions;
 using Conductor.Devices.Interfaces.Configurations;
 using Conductor.Devices.Interfaces.Devices;
 using Conductor.Scenes.Enums;
@@ -15,8 +16,12 @@ public abstract class SceneChangeHandlerBase
         where TClient : IDevice<TConfiguration>
         where TConfiguration : IDeviceConfiguration
     {
-        var powerState = client is IPower powerClient
-            ? await UpdatePowerState(powerClient, state.PowerState, cancellationToken)
+        var powerOnOffState = client is IPowerOnOff powerOnOffClient
+            ? await UpdatePowerOnOffState(powerOnOffClient, state.PowerState, cancellationToken)
+            : null;
+        
+        var powerToggleState = client is IPowerToggle powerToggleClient
+            ? await UpdatePowerToggleState(powerToggleClient, state.PowerState, cancellationToken)
             : null;
 
         var source = client is ISources sourcesClient
@@ -33,15 +38,27 @@ public abstract class SceneChangeHandlerBase
 
         return new State(state.Device)
         {
-            PowerState = powerState,
+            PowerState = powerOnOffState ?? powerToggleState,
             Source = source,
             MutingState = muting,
             AudioMode = audioMode
         };
     }
 
-    private static Task<PowerState?> UpdatePowerState(
-        IPower client,
+    private static Task<PowerState?> UpdatePowerOnOffState(
+        IPowerOnOff client,
+        PowerState? powerState,
+        CancellationToken cancellationToken) =>
+        UpdateDeviceState(
+            client,
+            powerState,
+            (c, ct) => c.GetPowerStatus(ct),
+            (c, s, ct) => c.SwitchPower(s, ct),
+            client.DelayAfterPowerChange,
+            cancellationToken);
+
+    private static Task<PowerState?> UpdatePowerToggleState(
+        IPowerToggle client,
         PowerState? powerState,
         CancellationToken cancellationToken) =>
         UpdateDeviceState(
