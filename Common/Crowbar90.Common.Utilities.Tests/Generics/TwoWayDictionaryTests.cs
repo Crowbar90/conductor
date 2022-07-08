@@ -91,9 +91,17 @@ public class TwoWayDictionaryTests
         var removeResult4 = sut.Remove("four");
 
         removeResult1.ShouldBeTrue();
+        sut.Keys.ShouldNotContain(1);
+        sut.Values.ShouldNotContain("one");
         removeResult2.ShouldBeTrue();
+        sut.Keys.ShouldNotContain(2);
+        sut.Values.ShouldNotContain("two");
         removeResult3.ShouldBeTrue();
+        sut.Keys.ShouldNotContain(3);
+        sut.Values.ShouldNotContain("three");
         removeResult4.ShouldBeTrue();
+        sut.Keys.ShouldNotContain(4);
+        sut.Values.ShouldNotContain("four");
     }
 
     [Fact]
@@ -145,6 +153,8 @@ public class TwoWayDictionaryTests
         sut.Clear();
 
         sut.Count.ShouldBe(0);
+        sut.Keys.ShouldBeEmpty();
+        sut.Values.ShouldBeEmpty();
     }
 
     [Fact]

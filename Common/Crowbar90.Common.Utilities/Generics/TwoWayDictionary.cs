@@ -46,9 +46,7 @@ public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
         if (!_forward.ContainsKey(key))
             return false;
         
-        _forward.Remove(key);
-        _backward.Remove(value);
-        return true;
+        return _forward.Remove(key) && _backward.Remove(value);
     }
 
     public bool Remove(KeyValuePair<TValue, TKey> item)
@@ -58,9 +56,7 @@ public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
         if (!_backward.ContainsKey(value))
             return false;
         
-        _forward.Remove(key);
-        _backward.Remove(value);
-        return true;
+        return _forward.Remove(key) && _backward.Remove(value);
     }
 
     public bool Remove(TKey key)
@@ -68,18 +64,15 @@ public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
         if (!_forward.TryGetValue(key, out var value))
             return false;
         
-        _forward.Remove(key);
-        _backward.Remove(value);
-        return true;
+        return _forward.Remove(key) && _backward.Remove(value);
     }
+    
     public bool Remove(TValue value)
     {
         if (!_backward.TryGetValue(value, out var key))
             return false;
         
-        _forward.Remove(key);
-        _backward.Remove(value);
-        return true;
+        return _forward.Remove(key) && _backward.Remove(value);
     }
 
     public void Clear()
@@ -166,5 +159,5 @@ public sealed class TwoWayDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     }
 
     public ICollection<TKey> Keys => _forward.Keys;
-    public ICollection<TValue> Values => _forward.Values;
+    public ICollection<TValue> Values => _backward.Keys;
 }
