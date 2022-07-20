@@ -1,8 +1,10 @@
-﻿using Conductor.Devices.Interfaces.Devices;
+﻿using System.Diagnostics.CodeAnalysis;
+using Conductor.Devices.Interfaces.Devices;
 using Conductor.Scenes.Enums;
 
 namespace Conductor.Scenes.Notifications.Tests.Mocks.FullDevice;
 
+[ExcludeFromCodeCoverage]
 public partial class FullDeviceMock : IDevice<DeviceConfigurationMock>
 {
     public FullDeviceMock(PowerState powerState, Source source, MutingState mutingState, AudioMode audioMode)

@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Conductor.Scenes.Notifications.Tests.Mocks.FullDevice;
 
 namespace Conductor.Scenes.Notifications.Tests.Mocks;
 
+[ExcludeFromCodeCoverage]
 public class SceneChangeNotificationHandlerMock : SceneChangeHandlerBase
 {
     public static async Task Handle(

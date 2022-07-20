@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Crowbar90.Common.Utilities.Generics;
 using Shouldly;
 using Xunit;
 
 namespace Crowbar90.Common.Utilities.Tests.Generics;
 
+[ExcludeFromCodeCoverage]
 public class TwoWayDictionaryTests
 {
     private static TwoWayDictionary<int, string> InitializeSut() =>

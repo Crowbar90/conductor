@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using Xunit;
 
 namespace Conductor.Scenes.Notifications.Tests;
 
+[ExcludeFromCodeCoverage]
 public class SceneChangeHandlerBaseTests
 {
     private static FullDeviceMock InitializeDevice() =>
