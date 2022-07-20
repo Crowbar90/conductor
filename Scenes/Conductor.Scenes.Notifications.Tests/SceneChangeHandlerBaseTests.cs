@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,12 +39,15 @@ public class SceneChangeHandlerBaseTests
         var state = InitializeState();
         var scene = InitializeScene("Test", state);
         var notification = InitializeNotification(scene);
-
+        
+        var stopwatch = Stopwatch.StartNew();
         await SceneChangeNotificationHandlerMock.Handle(device, notification, CancellationToken.None);
+        stopwatch.Stop();
         
         (await device.GetPowerStatus()).ShouldBe(PowerState.On);
         (await device.GetActiveSource()).ShouldBe(Source.Sat);
         (await device.GetMutingStatus()).ShouldBe(MutingState.Unmuted);
         (await device.GetPowerStatus()).ShouldBe(PowerState.On);
+        stopwatch.ElapsedMilliseconds.ShouldBeGreaterThan(1000);
     }
 }

@@ -19,5 +19,5 @@ public partial class FullDeviceMock : ISources
         return Task.FromResult(_source);
     }
 
-    public TimeSpan DelayAfterSourceChange => TimeSpan.Zero;
+    public TimeSpan DelayAfterSourceChange => TimeSpan.FromSeconds(1);
 }
