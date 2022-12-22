@@ -5,7 +5,7 @@ using Conductor.Scenes.Enums;
 namespace Conductor.Scenes.Notifications.Tests.Mocks.FullDevice;
 
 [ExcludeFromCodeCoverage]
-public partial class FullDeviceMock : IDevice<DeviceConfigurationMock>
+public partial record FullDeviceMock : IDevice<DeviceConfigurationMock>
 {
     public FullDeviceMock(PowerState powerState, Source source, MutingState mutingState, AudioMode audioMode)
     {

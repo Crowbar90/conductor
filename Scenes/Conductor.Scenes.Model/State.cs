@@ -2,15 +2,8 @@
 
 namespace Conductor.Scenes.Model;
 
-public class State
+public record State(Device Device)
 {
-    public State(Device device)
-    {
-        Device = device;
-    }
-
-    public Device Device { get; init; }
-    
     public PowerState? PowerState { get; init; }
     public Source? Source { get; init; }
     

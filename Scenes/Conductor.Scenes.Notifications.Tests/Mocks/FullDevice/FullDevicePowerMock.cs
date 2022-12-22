@@ -6,7 +6,7 @@ using Conductor.Scenes.Enums;
 
 namespace Conductor.Scenes.Notifications.Tests.Mocks.FullDevice;
 
-public partial class FullDeviceMock : IPower
+public partial record FullDeviceMock : IPower
 {
     private PowerState _powerState;
 
@@ -19,7 +19,7 @@ public partial class FullDeviceMock : IPower
     public Task<PowerState> PowerOff(CancellationToken cancellationToken = default) =>
         SwitchPower(PowerState.Off, cancellationToken);
 
-    public Task<PowerState> SwitchPower(PowerState status, CancellationToken cancellationToken = default)
+    private Task<PowerState> SwitchPower(PowerState status, CancellationToken cancellationToken = default)
     {
         _powerState = status;
         return Task.FromResult(_powerState);

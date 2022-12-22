@@ -6,7 +6,7 @@ using Conductor.Scenes.Enums;
 
 namespace Conductor.Scenes.Notifications.Tests.Mocks.FullDevice;
 
-public partial class FullDeviceMock : IAudioMode
+public partial record FullDeviceMock : IAudioMode
 {
     private AudioMode _audioMode;
 

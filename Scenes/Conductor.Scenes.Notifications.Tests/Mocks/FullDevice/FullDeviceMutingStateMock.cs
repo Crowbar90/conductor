@@ -6,7 +6,7 @@ using Conductor.Scenes.Enums;
 
 namespace Conductor.Scenes.Notifications.Tests.Mocks.FullDevice;
 
-public partial class FullDeviceMock : IMuting
+public partial record FullDeviceMock : IMuting
 {
     private MutingState _mutingState;
 
