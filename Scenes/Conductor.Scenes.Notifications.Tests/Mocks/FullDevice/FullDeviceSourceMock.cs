@@ -2,22 +2,23 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Conductor.Devices.Interfaces.Capabilities;
-using Conductor.Scenes.Enums;
 
 namespace Conductor.Scenes.Notifications.Tests.Mocks.FullDevice;
 
 public partial record FullDeviceMock : ISources
 {
-    private Source _source;
+    private string _source;
 
-    public Task<Source> GetActiveSource(CancellationToken cancellationToken = default) =>
+    public Task<string> GetActiveSource(CancellationToken cancellationToken = default) =>
         Task.FromResult(_source);
 
-    public Task<Source> SetSource(Source source, CancellationToken cancellationToken = default)
+    public Task<string> SetSource(string source, CancellationToken cancellationToken = default)
     {
         _source = source;
         return Task.FromResult(_source);
     }
+
+    public string[] SourceResourceKeys() => new[] { "TV", "SAT" };
 
     public TimeSpan DelayAfterSourceChange => TimeSpan.FromSeconds(1);
 }

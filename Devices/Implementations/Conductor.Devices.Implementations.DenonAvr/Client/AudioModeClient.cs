@@ -1,18 +1,18 @@
 ﻿using Conductor.Devices.Implementations.DenonAvr.Mappers;
 using Conductor.Devices.Interfaces.Capabilities;
 using Conductor.Devices.Interfaces.Exceptions;
-using Conductor.Scenes.Enums;
 using I8Beef.Denon.Commands;
 
 namespace Conductor.Devices.Implementations.DenonAvr.Client;
 
 public sealed partial class DenonAvrClient : IAudioMode
 {
-    public async Task<AudioMode> GetActiveAudioMode(CancellationToken cancellationToken = default)
+    public async Task<string> GetActiveAudioMode(CancellationToken cancellationToken = default)
     {
         try
         {
-            return (await _telnetClient.SendQueryAsync(new SurroundModeCommand(), cancellationToken)).ToCommonAudioMode();
+            return (await _telnetClient.SendQueryAsync(new SurroundModeCommand(), cancellationToken))
+                .ToCommonAudioMode();
         }
         catch (ArgumentOutOfRangeException e)
         {
@@ -24,7 +24,7 @@ public sealed partial class DenonAvrClient : IAudioMode
         }
     }
 
-    public async Task<AudioMode> SetAudioMode(AudioMode audioMode, CancellationToken cancellationToken = default)
+    public async Task<string> SetAudioMode(string audioMode, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -41,6 +41,8 @@ public sealed partial class DenonAvrClient : IAudioMode
             throw new UnexpectedResponseException($"{GetType()}: Error sending telnet query.", e);
         }
     }
+
+    public string[] AudioModeResourceKeys() => Resources.ResourceKeys.AudioMode.All;
 
     public TimeSpan DelayAfterAudioModeChange => TimeSpan.FromSeconds(1);
 }

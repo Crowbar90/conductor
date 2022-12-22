@@ -2,31 +2,29 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Conductor.Devices.Interfaces.Capabilities;
-using Conductor.Scenes.Enums;
 
 namespace Conductor.Scenes.Notifications.Tests.Mocks.FullDevice;
 
 public partial record FullDeviceMock : IMuting
 {
-    private MutingState _mutingState;
+    private string _mutingState;
 
-    public Task<MutingState> GetMutingStatus(CancellationToken cancellationToken = default) =>
+    public Task<string> GetMutingStatus(CancellationToken cancellationToken = default) =>
         Task.FromResult(_mutingState);
 
-    public Task<MutingState> Mute(CancellationToken cancellationToken = default) =>
-        SwitchMuting(MutingState.Muted, cancellationToken);
+    public Task<string> Mute(CancellationToken cancellationToken = default) =>
+        SwitchMuting("ON", cancellationToken);
 
-    public Task<MutingState> Unmute(CancellationToken cancellationToken = default) =>
-        SwitchMuting(MutingState.Unmuted, cancellationToken);
+    public Task<string> Unmute(CancellationToken cancellationToken = default) =>
+        SwitchMuting("OFF", cancellationToken);
 
-    public Task<MutingState> SwitchMuting(MutingState status, CancellationToken cancellationToken = default)
+    public Task<string> SwitchMuting(string status, CancellationToken cancellationToken = default)
     {
         _mutingState = status;
         return Task.FromResult(_mutingState);
     }
 
-    public Task<MutingState> MutingToggleAsync(CancellationToken cancellationToken = default) =>
-        SwitchMuting(_mutingState.Opposite(), cancellationToken);
-
+    public string[] MutingStateResourceKeys() => new[] { "ON", "OFF" };
+    
     public TimeSpan DelayAfterMutingChange => TimeSpan.Zero;
 }

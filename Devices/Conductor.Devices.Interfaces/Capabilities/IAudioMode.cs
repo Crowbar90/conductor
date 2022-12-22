@@ -1,12 +1,12 @@
-using Conductor.Scenes.Enums;
-
 namespace Conductor.Devices.Interfaces.Capabilities;
 
 public interface IAudioMode
 {
-    Task<AudioMode> GetActiveAudioMode(CancellationToken cancellationToken = default);
+    Task<string> GetActiveAudioMode(CancellationToken cancellationToken = default);
 
-    Task<AudioMode> SetAudioMode(AudioMode audioMode, CancellationToken cancellationToken = default);
+    Task<string> SetAudioMode(string audioMode, CancellationToken cancellationToken = default);
+
+    string[] AudioModeResourceKeys();
 
     TimeSpan DelayAfterAudioModeChange { get; }
 }

@@ -1,14 +1,13 @@
 ﻿using Conductor.Devices.Implementations.DenonAvr.Mappers;
 using Conductor.Devices.Interfaces.Capabilities;
 using Conductor.Devices.Interfaces.Exceptions;
-using Conductor.Scenes.Enums;
 using I8Beef.Denon.Commands;
 
 namespace Conductor.Devices.Implementations.DenonAvr.Client;
 
 public sealed partial class DenonAvrClient : ISources
 {
-    public async Task<Source> GetActiveSource(CancellationToken cancellationToken = default)
+    public async Task<string> GetActiveSource(CancellationToken cancellationToken = default)
     {
         try
         {
@@ -24,7 +23,7 @@ public sealed partial class DenonAvrClient : ISources
         }
     }
 
-    public async Task<Source> SetSource(Source source, CancellationToken cancellationToken = default)
+    public async Task<string> SetSource(string source, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -41,6 +40,8 @@ public sealed partial class DenonAvrClient : ISources
             throw new UnexpectedResponseException($"{GetType()}: Error sending telnet query.", e);
         }
     }
+
+    public string[] SourceResourceKeys() => Resources.ResourceKeys.Source.All;
 
     public TimeSpan DelayAfterSourceChange => TimeSpan.FromSeconds(2);
 }

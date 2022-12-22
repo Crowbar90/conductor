@@ -1,14 +1,13 @@
 ﻿using Conductor.Devices.Implementations.DenonAvr.Mappers;
 using Conductor.Devices.Interfaces.Capabilities;
 using Conductor.Devices.Interfaces.Exceptions;
-using Conductor.Scenes.Enums;
 using I8Beef.Denon.Commands;
 
 namespace Conductor.Devices.Implementations.DenonAvr.Client;
 
 public sealed partial class DenonAvrClient : IMuting
 {
-    public async Task<MutingState> GetMutingStatus(CancellationToken cancellationToken = default)
+    public async Task<string> GetMutingStatus(CancellationToken cancellationToken = default)
     {
         try
         {
@@ -24,13 +23,13 @@ public sealed partial class DenonAvrClient : IMuting
         }
     }
 
-    public Task<MutingState> Mute(CancellationToken cancellationToken = default) =>
-        SwitchMuting(MutingState.Muted, cancellationToken);
+    public Task<string> Mute(CancellationToken cancellationToken = default) =>
+        SwitchMuting(Resources.ResourceKeys.MutingState.On, cancellationToken);
 
-    public Task<MutingState> Unmute(CancellationToken cancellationToken = default) =>
-        SwitchMuting(MutingState.Unmuted, cancellationToken);
+    public Task<string> Unmute(CancellationToken cancellationToken = default) =>
+        SwitchMuting(Resources.ResourceKeys.MutingState.Off, cancellationToken);
 
-    public async Task<MutingState> SwitchMuting(MutingState status, CancellationToken cancellationToken = default)
+    public async Task<string> SwitchMuting(string status, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -48,8 +47,7 @@ public sealed partial class DenonAvrClient : IMuting
         }
     }
 
-    public async Task<MutingState> MutingToggleAsync(CancellationToken cancellationToken = default) =>
-        await SwitchMuting((await GetMutingStatus(cancellationToken)).Opposite(), cancellationToken);
+    public string[] MutingStateResourceKeys() => Resources.ResourceKeys.MutingState.All;
 
     public TimeSpan DelayAfterMutingChange => TimeSpan.Zero;
 }

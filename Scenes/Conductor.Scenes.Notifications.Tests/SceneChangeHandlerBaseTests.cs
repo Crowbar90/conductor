@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Conductor.Scenes.Enums;
 using Conductor.Scenes.Model;
 using Conductor.Scenes.Notifications.Tests.Mocks;
 using Conductor.Scenes.Notifications.Tests.Mocks.FullDevice;
@@ -17,15 +16,15 @@ namespace Conductor.Scenes.Notifications.Tests;
 public class SceneChangeHandlerBaseTests
 {
     private static FullDeviceMock InitializeDevice() =>
-        new(PowerState.On, Source.Tv, MutingState.Unmuted, AudioMode.Auto);
+        new("OFF", "TV", "OFF", "MODE_A");
 
     private static State InitializeState() =>
         new(new Device(Guid.NewGuid(), typeof(FullDeviceMock)))
         {
-            PowerState = PowerState.On,
-            Source = Source.Sat,
-            MutingState = MutingState.Unmuted,
-            AudioMode = AudioMode.Auto
+            PowerState = "ON",
+            Source = "SAT",
+            MutingState = "OFF",
+            AudioMode = "MODE_B"
         };
 
     private static Scene InitializeScene(string name, params State[] states) =>
@@ -46,10 +45,10 @@ public class SceneChangeHandlerBaseTests
         await SceneChangeNotificationHandlerMock.Handle(device, notification, CancellationToken.None);
         stopwatch.Stop();
         
-        (await device.GetPowerStatus()).ShouldBe(PowerState.On);
-        (await device.GetActiveSource()).ShouldBe(Source.Sat);
-        (await device.GetMutingStatus()).ShouldBe(MutingState.Unmuted);
-        (await device.GetPowerStatus()).ShouldBe(PowerState.On);
+        (await device.GetPowerStatus()).ShouldBe(state.PowerState);
+        (await device.GetActiveSource()).ShouldBe(state.Source);
+        (await device.GetMutingStatus()).ShouldBe(state.MutingState);
+        (await device.GetActiveAudioMode()).ShouldBe(state.AudioMode);
         stopwatch.ElapsedMilliseconds.ShouldBeGreaterThan(1000);
     }
 }

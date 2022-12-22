@@ -7,6 +7,7 @@ public sealed partial class DenonAvrClient :
     INetworkDevice<DenonAvrConfiguration>,
     IDisposable
 {
+    
     private readonly I8Beef.Denon.TelnetClient.Client _telnetClient;
     private bool _disposed;
 

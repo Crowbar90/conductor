@@ -1,8 +1,6 @@
 ﻿using Conductor.Devices.Interfaces.Capabilities;
-using Conductor.Devices.Interfaces.Capabilities.Extensions;
 using Conductor.Devices.Interfaces.Configurations;
 using Conductor.Devices.Interfaces.Devices;
-using Conductor.Scenes.Enums;
 using Conductor.Scenes.Model;
 
 namespace Conductor.Scenes.Notifications;
@@ -16,12 +14,8 @@ public abstract class SceneChangeHandlerBase
         where TClient : IDevice<TConfiguration>
         where TConfiguration : IDeviceConfiguration
     {
-        var powerOnOffState = client is IPowerOnOff powerOnOffClient
-            ? await UpdatePowerOnOffState(powerOnOffClient, state.PowerState, cancellationToken)
-            : null;
-        
-        var powerToggleState = client is IPowerToggle powerToggleClient
-            ? await UpdatePowerToggleState(powerToggleClient, state.PowerState, cancellationToken)
+        var power = client is IPower powerClient
+            ? await UpdatePowerState(powerClient, state.PowerState, cancellationToken)
             : null;
 
         var source = client is ISources sourcesClient
@@ -38,16 +32,16 @@ public abstract class SceneChangeHandlerBase
 
         return new State(state.Device)
         {
-            PowerState = powerOnOffState ?? powerToggleState,
+            PowerState = power,
             Source = source,
             MutingState = muting,
             AudioMode = audioMode
         };
     }
 
-    private static Task<PowerState?> UpdatePowerOnOffState(
-        IPowerOnOff client,
-        PowerState? powerState,
+    private static Task<string?> UpdatePowerState(
+        IPower client,
+        string? powerState,
         CancellationToken cancellationToken) =>
         UpdateDeviceState(
             client,
@@ -56,22 +50,10 @@ public abstract class SceneChangeHandlerBase
             (c, s, ct) => c.SwitchPower(s, ct),
             client.DelayAfterPowerChange,
             cancellationToken);
-
-    private static Task<PowerState?> UpdatePowerToggleState(
-        IPowerToggle client,
-        PowerState? powerState,
-        CancellationToken cancellationToken) =>
-        UpdateDeviceState(
-            client,
-            powerState,
-            (c, ct) => c.GetPowerStatus(ct),
-            (c, s, ct) => c.SwitchPower(s, ct),
-            client.DelayAfterPowerChange,
-            cancellationToken);
-
-    private static Task<Source?> UpdateSource(
+    
+    private static Task<string?> UpdateSource(
         ISources client,
-        Source? source,
+        string? source,
         CancellationToken cancellationToken) =>
         UpdateDeviceState(
             client,
@@ -81,9 +63,9 @@ public abstract class SceneChangeHandlerBase
             client.DelayAfterSourceChange,
             cancellationToken);
 
-    private static Task<MutingState?> UpdateMutingState(
+    private static Task<string?> UpdateMutingState(
         IMuting client,
-        MutingState? mutingState,
+        string? mutingState,
         CancellationToken cancellationToken) =>
         UpdateDeviceState(
             client,
@@ -93,9 +75,9 @@ public abstract class SceneChangeHandlerBase
             client.DelayAfterMutingChange,
             cancellationToken);
 
-    private static Task<AudioMode?> UpdateAudioMode(
+    private static Task<string?> UpdateAudioMode(
         IAudioMode client,
-        AudioMode? audioMode,
+        string? audioMode,
         CancellationToken cancellationToken) =>
         UpdateDeviceState(
             client,
@@ -105,19 +87,18 @@ public abstract class SceneChangeHandlerBase
             client.DelayAfterAudioModeChange,
             cancellationToken);
 
-    private static async Task<TState?> UpdateDeviceState<TClient, TState>(
+    private static async Task<string?> UpdateDeviceState<TClient>(
         TClient client,
-        TState? state,
-        Func<TClient, CancellationToken, Task<TState>> getStateFn,
-        Func<TClient, TState, CancellationToken, Task<TState>> setStateFn,
+        string? state,
+        Func<TClient, CancellationToken, Task<string>> getStateFn,
+        Func<TClient, string, CancellationToken, Task<string>> setStateFn,
         TimeSpan delay,
         CancellationToken cancellationToken)
-        where TState : struct
     {
-        if (!state.HasValue || (await getStateFn(client, cancellationToken)).Equals(state))
+        if (string.IsNullOrWhiteSpace(state) || (await getStateFn(client, cancellationToken)).Equals(state))
             return state;
 
-        var result = await setStateFn(client, state.Value, cancellationToken);
+        var result = await setStateFn(client, state, cancellationToken);
         await Task.Delay(delay, cancellationToken);
 
         return result;

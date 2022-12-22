@@ -8,8 +8,4 @@
         <LangVersion>10</LangVersion>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Conductor.Scenes.Enums\Conductor.Scenes.Enums.csproj" />
-    </ItemGroup>
-
 </Project>

@@ -1,14 +1,13 @@
 ﻿using Conductor.Devices.Implementations.DenonAvr.Mappers;
 using Conductor.Devices.Interfaces.Capabilities;
 using Conductor.Devices.Interfaces.Exceptions;
-using Conductor.Scenes.Enums;
 using I8Beef.Denon.Commands;
 
 namespace Conductor.Devices.Implementations.DenonAvr.Client;
 
-public sealed partial class DenonAvrClient : IPowerOnOff
+public sealed partial class DenonAvrClient : IPower
 {
-    public async Task<PowerState> GetPowerStatus(CancellationToken cancellationToken = default)
+    public async Task<string> GetPowerStatus(CancellationToken cancellationToken = default)
     {
         try
         {
@@ -24,7 +23,7 @@ public sealed partial class DenonAvrClient : IPowerOnOff
         }
     }
 
-    public async Task<PowerState> SwitchPower(PowerState status, CancellationToken cancellationToken = default)
+    public async Task<string> SwitchPower(string status, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -41,6 +40,8 @@ public sealed partial class DenonAvrClient : IPowerOnOff
             throw new UnexpectedResponseException($"{GetType()}: Error sending telnet query.", e);
         }
     }
+
+    public string[] PowerStateResourceKeys() => Resources.ResourceKeys.PowerState.All;
 
     public TimeSpan DelayAfterPowerChange => TimeSpan.FromSeconds(3);
 }
